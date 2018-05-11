@@ -55,7 +55,16 @@ function renderApp () {
  * See web.xml.
  */
 function fetchToken (): { token: string, username: string, domain: string, userId: string } {
-  const userInfo = window.userInfo
+//  const userInfo = 
+
+// TODO tjelinek
+  return {
+      token: 'iNTnfq7yltgSEtD-L2GCAZy2AtW1m-P7fA7lkKYD_Go',
+      username: 'admin',
+      domain: 'fake',
+      userId: 'admin',
+    }
+/*
   logDebug(`SSO userInfo: ${JSON.stringify(userInfo)}`)
 
   if (userInfo) {
@@ -72,17 +81,20 @@ function fetchToken (): { token: string, username: string, domain: string, userI
     domain: '',
     userId: '',
   }
+*/
 }
 
 function loadPersistedState () {
   // load persisted icons, etc ...
-  const { icons } = loadStateFromLocalStorage()
+/*  
+    const { icons } = loadStateFromLocalStorage()
 
   if (icons) {
     const iconsArray = valuesOfObject(icons)
     console.log(`loadPersistedState: ${iconsArray.length} icons loaded`)
     store.dispatch(updateIcons({ icons: iconsArray }))
   }
+*/
 }
 
 function addBrandedResources () {
@@ -120,7 +132,7 @@ function onResourcesLoaded () {
   // initiate data retrieval
   Selectors.init({ store })
 
-  loadPersistedState()
+//  loadPersistedState()
 
   store.dispatch(setDomain({ domain }))
   if (token) {

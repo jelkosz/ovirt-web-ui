@@ -1,4 +1,4 @@
-import Api from 'ovirtapi'
+import Api from './kubevirtapi'
 import { persistStateToLocalStorage } from './storage'
 import Selectors from './selectors'
 import AppConfiguration from './config'
@@ -128,7 +128,7 @@ function* fetchByPage (action) {
   yield put(loadInProgress({ value: true }))
   yield put(setChanged({ value: false }))
   yield fetchVmsByPage(action)
-  yield fetchPoolsByPage(action)
+//  yield fetchPoolsByPage(action)
   yield put(loadInProgress({ value: false }))
 }
 
@@ -183,14 +183,23 @@ function* refreshData (action) {
 }
 
 function* fetchVmsByPage (action) {
-  const actual = Selectors.getOvirtVersion().toJS()
-  if (compareVersion({ major: parseInt(actual.major), minor: parseInt(actual.minor) }, { major: 4, minor: 2 })) {
+  //const actual = Selectors.getOvirtVersion().toJS()
+  const allVms = yield callExternalAction('getVmsByPage', Api.getVmsByPage, action)
+  
+  logDebug(allVms.items)
+
+  const internalVms = allVms.items.map(vm => Api.vmToInternal({ vm, getSubResources: true }))
+
+  yield put(updateVms({ vms: internalVms, copySubResources: true, page: 1 }))
+
+  /*if (compareVersion({ major: parseInt(actual.major), minor: parseInt(actual.minor) }, { major: 4, minor: 2 })) {
     yield fetchVmsByPageV42(action)
   } else {
     yield fetchVmsByPageVLower(action)
-  }
+  }*/
 }
 
+/*
 function* fetchVmsByPageV42 (action) {
   const { shallowFetch, page } = action.payload
   let additional = []
@@ -209,7 +218,7 @@ function* fetchVmsByPageV42 (action) {
 
   yield put(persistState())
 }
-
+*/
 function* fetchVmsByPageVLower (action) {
   const { shallowFetch, page } = action.payload
 

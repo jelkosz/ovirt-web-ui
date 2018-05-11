@@ -274,6 +274,11 @@ function runDevServer(port, protocol) {
 
 function run(port) {
   var protocol = process.env.HTTPS === 'true' ? "https" : "http";
+  setupCompiler(port, protocol);
+  runDevServer(port, protocol);
+
+/*
+  var protocol = process.env.HTTPS === 'true' ? "https" : "http";
   checkRequiredFiles();
   getUserInfo(protocol, port).then(userInfo => {
     injectUserInfo(userInfo);
@@ -282,6 +287,7 @@ function run(port) {
   }).catch(err => {
     console.error(`Failed obtaining oVirt auth token: ${err}`)
   })
+*/
 }
 
 // We attempt to use the default port but if it is busy, we offer the user to

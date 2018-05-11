@@ -1,5 +1,5 @@
 import Product from '../version'
-import Api from '../ovirtapi'
+import Api from '../kubevirtapi'
 import AppConfiguration from '../config'
 import OptionsManager from '../optionsManager'
 import Selectors from '../selectors'
@@ -54,6 +54,15 @@ export function* login (action) {
   let token = action.payload.token // the user is already logged in via oVirt SSO
   let result = {}
 
+  const username = action.payload.credentials.username
+  yield put(loginSuccessful({
+    token,
+    username,
+    userId: action.payload.userId,
+  }))
+
+  yield initialLoad()
+/*
   if (token) {
     const username = action.payload.credentials.username
     yield put(loginSuccessful({
@@ -87,6 +96,8 @@ export function* login (action) {
     }))
     yield put(yield put(loadInProgress({ value: false })))
   }
+
+*/
 }
 
 export function* doCheckTokenExpired (action) {
@@ -186,13 +197,13 @@ function* autoConnectCheck (action) {
 }
 
 function* initialLoad () {
-  yield put(getAllClusters()) // no shallow
+/*  yield put(getAllClusters()) // no shallow
   yield put(getAllHosts())
   yield put(getAllOperatingSystems())
   yield put(getAllTemplates({ shallowFetch: false }))
   yield put(getAllStorageDomains())
   yield put(getAllVnicProfiles())
-
+*/
   yield put(getByPage({ page: 1 })) // first page of VMs list
 }
 
