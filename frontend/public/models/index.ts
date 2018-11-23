@@ -814,6 +814,45 @@ export const VirtualMachineInstancePresetModel: K8sKind = {
   id: 'virtualmachineinstancepreset',
 };
 
+export const DataVolume: K8sKind = {
+  label: 'Data Volume',
+  labelPlural: 'Data Volumes',
+  apiVersion: 'v1alpha1',
+  path: 'datavolumes',
+  apiGroup: 'cdi.kubevirt.io',
+  plural: 'datavolumes',
+  abbr: 'DV',
+  namespaced: true,
+  kind: 'DataVolume',
+  id: 'datavolume',
+};
+
+export const VirtualMachineInstanceReplicaSet: K8sKind = {
+  label: 'Virtual Machine Instance Replica Set',
+  labelPlural: 'Virtual Machine Replica Set',
+  apiVersion: 'v1alpha2',
+  path: 'virtualmachineinstancereplicaset',
+  apiGroup: 'kubevirt.io',
+  plural: 'virtualmachineinstancereplicasets',
+  abbr: 'VMIRS',
+  namespaced: true,
+  kind: 'VirtualMachineInstanceReplicaSet',
+  id: 'virtualmachineinstancereplicaset',
+};
+
+export const VirtualMachineInstanceMigration: K8sKind = {
+  label: 'Virtual Machine Instance Migration',
+  labelPlural: 'Virtual Machine Instance Migrations',
+  apiVersion: 'v1alpha2',
+  path: 'virtualmachineinstancemigration',
+  apiGroup: 'kubevirt.io',
+  plural: 'virtualmachineinstancemigrations',
+  abbr: 'VMIM',
+  namespaced: true,
+  kind: 'VirtualMachineInstanceMigration',
+  id: 'virtualmachineinstancemigration',
+};
+
 export const LimitRangeModel: K8sKind = {
   label: 'Limit Range',
   apiVersion: 'v1',
